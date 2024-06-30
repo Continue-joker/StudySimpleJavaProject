@@ -3,7 +3,7 @@ package page;
 /**
  * 商品操作页
  */
-public  final class GoodsPage {
+public final class GoodsPage {
     /**
      * 添加商品
      */
