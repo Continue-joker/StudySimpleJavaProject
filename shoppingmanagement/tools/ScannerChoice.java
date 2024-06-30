@@ -7,7 +7,7 @@ import page.GoodsPage;
 import page.MainPage;
 import page.SalsesManPage;
 
-public class ScannerChoice {
+public final class ScannerChoice {
     /**
      * 输入工具类：
      * 1.控制输入格式
@@ -79,9 +79,9 @@ public class ScannerChoice {
 	 */
 	public static String ScannerInfoString()
 	{
-		Scanner scanner = new Scanner(System.in);
+		Scanner sc = new Scanner(System.in);
 		System.out.print("请输入：");
-		return scanner.next();
+		return sc.next();
 	}
 
 
