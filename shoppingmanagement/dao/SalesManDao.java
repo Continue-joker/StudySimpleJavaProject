@@ -10,7 +10,7 @@ import db.dbClose;
 import db.dbConnect;
 import entity.SalesMan;
 
-public class SalesManDao {
+public final class SalesManDao {
      Connection        conn  = null;
 	 PreparedStatement pstmt = null;
 	 ResultSet 		res 	 	 = null;

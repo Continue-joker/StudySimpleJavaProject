@@ -111,7 +111,14 @@ public final class ScannerChoice {
             System.err.println("输入错误，请重新输入：（Y/N）");
         } while (true);
     }
-
+    /**
+	 * 获取用户-更改-完售货员-下一步
+	 * 获取用户-添加-完售货员-下一步
+	 * 获取用户-查询-完售货员-下一步
+	 * 获取用户-删除-完售货员-下一步
+	 * 
+	 * @param 调用者
+	 */
     public static void choiceSalsesManNext(String oper){
         do {
             System.out.println("是否继续当前操作：（Y/N）");

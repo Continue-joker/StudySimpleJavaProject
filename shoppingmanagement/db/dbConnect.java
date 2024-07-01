@@ -12,7 +12,7 @@ public final class dbConnect {
     public static Connection getconn() {
         Connection conn = null;
 
-        String url = "jdbc:mysql://127.0.0.1/cainiaoshopping"; // 本地learn_sql数据库地址
+        String url = "jdbc:mysql://127.0.0.1:3307/cainiaoshopping"; // 本地learn_sql数据库地址
         String username = "root";// MySQL数据库登录用户名
         String password = "123456";// MySQL数据库登录密码
 

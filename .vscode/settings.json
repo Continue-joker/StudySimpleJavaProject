@@ -1,0 +1,10 @@
+{
+    "java.project.sourcePaths": [
+        "shoppingmanagement"
+    ],
+    "java.project.referencedLibraries": [
+        "e:\\DevelopProject\\StudySimpleJavaProject\\shoppingmanagement\\lib\\mysql-connector-j-8.4.0.jar"
+    ],
+    "java.project.outputPath": "bin",
+    "CodeGPT.apiKey": "CodeGPT Plus Beta"
+}
