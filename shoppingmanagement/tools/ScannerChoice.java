@@ -98,11 +98,11 @@ public final class ScannerChoice {
             String choice=ScannerInfoString();
             //在JAVA中: Equals比较的是值,==比较的是地址
             if (choice.equals("y")|choice.equals("Y")) {
-                if (oper.equals("updateGoods")) {
+                if (oper.equals("updateGoodsPage")) {
                     GoodsPage.updateGoodsPage();
-                }else if (oper.equals("deleteGoods")) {
+                }else if (oper.equals("deleteGoodsPage")) {
                     GoodsPage.deleteGoodsPage();
-                }else if (oper.equals("addGoods")) {
+                }else if (oper.equals("addGoodsPage")) {
                     GoodsPage.addGoodsPage();
                 }
             }else if (choice.equals("n")|choice.equals("N")) {

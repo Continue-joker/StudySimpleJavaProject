@@ -17,6 +17,34 @@ public final class GoodsDao {
     ResultSet rs = null;
 
     /**
+     * 1.添加商品到数据库goods表
+     * 
+     * @param goods 商品对象
+     * @return boolean
+     */
+    public boolean addGoods(Goods goods) {
+        boolean bool = false;
+        conn = dbConnect.getconn();
+        String sql = "INSERT INTO GOODS(GNAME,GPRICE,GNUM) VALUES(?,?,?)";
+        try {
+            pstmt = conn.prepareStatement(sql);
+            pstmt.setString(1, goods.getgName());
+            pstmt.setDouble(2, goods.getgPrice());
+            pstmt.setInt(3, goods.getgNum());
+
+            int rs = pstmt.executeUpdate();
+            if (rs > 0) {
+                bool = true;
+            }
+        } catch (SQLException e) {
+            e.printStackTrace();
+        } finally {
+            dbClose.addClose(pstmt, conn);
+        }
+        return bool;
+    }
+
+    /**
      * 2.更改商品信息到数据库goods表
      * 
      * @param key   选择要更改商品信息
@@ -64,7 +92,7 @@ public final class GoodsDao {
             case 3:// 改库存
                 String sqlNum = "UPDATE GOODS SET GNUM=? WHERE GID=?";
                 try {
-                    pstmt=conn.prepareStatement(sqlNum);
+                    pstmt = conn.prepareStatement(sqlNum);
                     pstmt.setInt(1, goods.getgNum());
                     pstmt.setInt(2, goods.getgId());
 
@@ -84,6 +112,34 @@ public final class GoodsDao {
         }
         return bool;
     }
+    /**
+	 * 3.从数据库goods表中-刪除商品
+	 * @param gid 商品编号
+	 * @return boolean
+	 */
+	public boolean deleteGoods(int gid)
+	{
+		boolean bool = false;
+		conn = DbConn.getconn();
+		String sql = "DELETE FROM GOODS WHERE GID=?";
+		
+			try
+			{
+				pstmt = conn.prepareStatement(sql);
+				pstmt.setInt(1,gid);
+				int rs = pstmt.executeUpdate();
+				if (rs > 0)
+				{
+					bool = true;
+				}
+			} catch (SQLException e)
+			{
+				e.printStackTrace();
+			}finally{
+						dbClose.addClose(pstmt,conn);
+					}
+		return bool;
+	}
 
     /**
      * 4.查询商品信息
@@ -137,7 +193,7 @@ public final class GoodsDao {
                 break;
             case 3:// 根据输入的商品名进行模糊查询,
                 String goodsName = ScannerChoice.ScannerInfoString();
-                //注意mysql的连接方式
+                // 注意mysql的连接方式
                 String sqlSerch = "SELECT * FROM GOODS WHERE GNAME LIKE CONCAT('%', ?, '%')";
                 try {
                     pstmt = conn.prepareStatement(sqlSerch);
@@ -163,6 +219,34 @@ public final class GoodsDao {
 
             default:
                 break;
+        }
+        return goodsList;
+    }
+
+    /**
+     * 5.展示所有产品信息
+     * 
+     * @return
+     */
+    public ArrayList<Goods> display() {
+        ArrayList<Goods> goodsList = new ArrayList<>();
+        conn = dbConnect.getconn();
+        String sql = "Select * From Goods";
+
+        try {
+            pstmt = conn.prepareStatement(sql);
+            rs = pstmt.executeQuery();
+            while (rs.next()) {
+                Goods goods = new Goods(rs.getInt(1), rs.getString(2), rs.getDouble(3),
+                        rs.getInt(4));
+
+                goodsList.add(goods);
+            }
+
+        } catch (SQLException e) {
+            e.printStackTrace();
+        } finally {
+            dbClose.queryClose(pstmt, rs, conn);
         }
         return goodsList;
     }

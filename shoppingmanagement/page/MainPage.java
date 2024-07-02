@@ -172,7 +172,30 @@ public final class MainPage {
      * 3.商品管理界面
      */
     public static void commodityManagePage() {
+        System.out.println("***************************\n");
+		System.out.println("\t 1.售货员管理\n");
+		System.out.println("\t 2.列出当日卖出列表\n");
+		System.out.println("***************************");
 
+		System.out.println("\n请输入选项,或者按 0 返回上一级菜单.");
+		do {
+			String choice =ScannerChoice.ScannerInfoString();
+			String regex = "[0-2]";
+			if (choice.matches(regex)) {
+				int info = Integer.parseInt(choice);
+				switch (info) {
+					case 0:
+						mianPage();
+						break;
+					case 1:
+						salesmanManagementPage();
+						break;
+					case 2:
+						GsalesPage.dailySaleGoodsPage();
+						break;
+					default:
+						break;
+				}
     }
 
     /**
@@ -205,7 +228,7 @@ public final class MainPage {
                         if (goods == null | goods.size() == 0) {
                             System.err.println("--查无此产品--");
                         } else {
-                            Goods tmpGoods = goods.get(0);//-----实际下单的单个产品
+                            Goods tmpGoods = goods.get(0);// -----实际下单的单个产品
                             int gnum = tmpGoods.getgNum();
                             double gprice = tmpGoods.getgPrice();
                             System.out.println("--请输入购买数量--");
@@ -227,39 +250,39 @@ public final class MainPage {
                                             System.out.println("\n总价：" + allPrice + " $");
                                             System.out.println("\n实际缴费金额");
                                             do {
-                                                double amount=ScannerChoice.ScannerInfo();
-                                                double balance=BigDecimalArith.sub(amount,choiceGoodsNums);
-                                                if (balance<0) {
+                                                double amount = ScannerChoice.ScannerInfo();
+                                                double balance = BigDecimalArith.sub(amount, choiceGoodsNums);
+                                                if (balance < 0) {
                                                     System.err.println("\t--缴纳金额不足，请重新输入缴纳金额($)");
-                                                }else{
+                                                } else {
                                                     /*
-													 * 这里是购物结算操作数据库！！！！！！---------------------- 
-													 * 1.更改goods表数量
-													 * 2.增加gsales表数量
-													 * 原商品数量gNum。 结算员Id salesManSid
-													 */
+                                                     * 这里是购物结算操作数据库！！！！！！----------------------
+                                                     * 1.更改goods表数量
+                                                     * 2.增加gsales表数量
+                                                     * 原商品数量gNum。 结算员Id salesManSid
+                                                     */
 
-                                                     //对gsales表操作
-                                                    Gsales gsales=new Gsales(gid, salesManId, choiceGoodsNums);
-                                                    boolean update=new GsalesDao().shoppingSettlement(gsales);
+                                                    // 对gsales表操作
+                                                    Gsales gsales = new Gsales(gid, salesManId, choiceGoodsNums);
+                                                    boolean update = new GsalesDao().shoppingSettlement(gsales);
 
-                                                    //对goods表操作
-                                                    int nowNum=tmpGoods.getgNum()-choiceGoodsNums;
-                                                    Goods updateGoods=new Goods(gidagain, nowNum);
-                                                    boolean updateNum=new GoodsDao().updateGoods(3, updateGoods);
+                                                    // 对goods表操作
+                                                    int nowNum = tmpGoods.getgNum() - choiceGoodsNums;
+                                                    Goods updateGoods = new Goods(gidagain, nowNum);
+                                                    boolean updateNum = new GoodsDao().updateGoods(3, updateGoods);
 
                                                     if (update && updateNum) {
-														System.out.println("找零：" + balance);
-														System.out.println("\n谢谢光临，欢迎下次惠顾");
-													} else {
-														System.err.println("！支付失败！"); // 出现这个错误一定是数据库操作有问题！
-													}
-													shoppingSettlementPage(salesManId);// 最后跳转到到购物结算页面
-													// 结束购物结算操作数据库！！！！！！-----------------------------------
+                                                        System.out.println("找零：" + balance);
+                                                        System.out.println("\n谢谢光临，欢迎下次惠顾");
+                                                    } else {
+                                                        System.err.println("！支付失败！"); // 出现这个错误一定是数据库操作有问题！
+                                                    }
+                                                    shoppingSettlementPage(salesManId);// 最后跳转到到购物结算页面
+                                                    // 结束购物结算操作数据库！！！！！！-----------------------------------
 
                                                 }
                                             } while (true);
-                                        }else if (choiceBuy.equals("y")|choiceBuy.equals("Y")) {
+                                        } else if (choiceBuy.equals("y") | choiceBuy.equals("Y")) {
                                             shoppingSettlementPage(salesManId);
                                         }
                                         System.err.println("\t！！请确认购物意向！！");
